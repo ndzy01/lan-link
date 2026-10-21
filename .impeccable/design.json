@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-20T22:46:55+08:00",
+  "title": "Design System: 局域网联机",
+  "extensions": {
+    "colorMeta": {
+      "accent": { "role": "primary", "displayName": "金色强调" },
+      "background": { "role": "neutral", "displayName": "深青背景" },
+      "text": { "role": "neutral", "displayName": "浅色文字" },
+      "muted": { "role": "neutral", "displayName": "次要说明" },
+      "surface": { "role": "neutral", "displayName": "提示底面" },
+      "border": { "role": "neutral", "displayName": "边框与分隔线" }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "页面标题", "purpose": "局域网联机标题，继承全页系统字体栈。" },
+      "headline": { "displayName": "区块标题", "purpose": "房间、配对与消息区域。" },
+      "title": { "displayName": "步骤标题", "purpose": "配对步骤和消息记录标题。" },
+      "body": { "displayName": "说明正文", "purpose": "操作说明和产品限制。" },
+      "code": { "displayName": "配对文本", "purpose": "只读配对文本使用系统等宽字体。" }
+    },
+    "shadows": [],
+    "motion": [],
+    "breakpoints": [
+      { "name": "single-column", "value": "680px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "主按钮",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "创建房间、打开相机和发送等当前主要操作。",
+      "html": "<button class=\"ds-primary\" type=\"button\">创建房间</button>",
+      "css": ".ds-primary{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:11px 18px;border:1px solid var(--accent,#f2d492);border-radius:9px;background:var(--accent,#f2d492);color:#143440;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;font-size:16px;font-weight:600;line-height:1.4;cursor:pointer;touch-action:manipulation}.ds-primary:disabled{cursor:not-allowed;opacity:.5}.ds-primary:focus-visible{outline:3px solid var(--accent,#f2d492);outline-offset:4px}.ds-primary:active:not(:disabled){background:#ffe6b1}@media(hover:hover){.ds-primary:hover:not(:disabled){background:#ffe5af;border-color:#ffe5af}}"
+    },
+    {
+      "name": "次按钮",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "加入房间、导入图片及其他辅助操作。",
+      "html": "<button class=\"ds-secondary\" type=\"button\">加入房间</button>",
+      "css": ".ds-secondary{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:11px 18px;border:1px solid var(--border,#527a80);border-radius:9px;background:#173f4c;color:#e4f2ec;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;font-size:16px;font-weight:600;line-height:1.4;cursor:pointer;touch-action:manipulation}.ds-secondary:disabled{cursor:not-allowed;opacity:.5}.ds-secondary:focus-visible{outline:3px solid var(--accent,#f2d492);outline-offset:4px}.ds-secondary:active:not(:disabled){background:#295665}@media(hover:hover){.ds-secondary:hover:not(:disabled){background:#265563;border-color:#a6bdaf}}"
+    },
+    {
+      "name": "透明按钮",
+      "kind": "button",
+      "refersTo": "button-quiet",
+      "description": "离开、取消、复制与清空操作；保留边框。",
+      "html": "<button class=\"ds-quiet\" type=\"button\">取消配对</button>",
+      "css": ".ds-quiet{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:11px 18px;border:1px solid var(--border,#527a80);border-radius:9px;background:transparent;color:#e4f2ec;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;font-size:16px;font-weight:600;line-height:1.4;cursor:pointer;touch-action:manipulation}.ds-quiet:disabled{cursor:not-allowed;opacity:.5}.ds-quiet:focus-visible{outline:3px solid var(--accent,#f2d492);outline-offset:4px}.ds-quiet:active:not(:disabled){background:#295665}@media(hover:hover){.ds-quiet:hover:not(:disabled){background:#265563;border-color:#a6bdaf}}"
+    },
+    {
+      "name": "消息文本框",
+      "kind": "input",
+      "refersTo": "textarea",
+      "description": "有可见标签的深色多行输入，允许长文本换行。",
+      "html": "<label class=\"ds-label\" for=\"ds-message\">消息内容</label><textarea class=\"ds-textarea\" id=\"ds-message\" rows=\"3\" placeholder=\"例如：你好，另一台设备\"></textarea>",
+      "css": ".ds-label{display:block;margin-bottom:8px;color:#e4f2ec;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;font-size:15px;line-height:1.5}.ds-textarea{display:block;width:100%;min-width:0;min-height:96px;padding:12px;border:1px solid var(--border,#527a80);border-radius:8px;background:#052432;color:#e4f2ec;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;font-size:16px;line-height:1.6;caret-color:var(--accent,#f2d492);resize:vertical;overflow-wrap:anywhere;touch-action:manipulation}.ds-textarea::placeholder{color:#a0bdc1;opacity:1}.ds-textarea:focus-visible{outline:3px solid var(--accent,#f2d492);outline-offset:4px}"
+    },
+    {
+      "name": "主页导航",
+      "kind": "nav",
+      "description": "页头文字链接，箭头与文字共同指示返回项目主页。",
+      "html": "<a class=\"ds-home\" href=\"/games/\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"m14 6-6 6 6 6\"/></svg>返回项目主页</a>",
+      "css": ".ds-home{display:inline-flex;align-items:center;gap:6px;min-height:44px;color:var(--accent,#f2d492);font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;text-underline-offset:4px;touch-action:manipulation}.ds-home svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.7}.ds-home:focus-visible{outline:3px solid var(--accent,#f2d492);outline-offset:4px}@media(hover:hover){.ds-home:hover{color:#ffe5af}}"
+    },
+    {
+      "name": "状态提示",
+      "kind": "custom",
+      "refersTo": "notice",
+      "description": "配对码生成期间使用的平面提示。",
+      "html": "<div class=\"ds-notice\" role=\"status\">正在生成配对码…</div>",
+      "css": ".ds-notice{padding:16px;border:1px solid var(--border,#527a80);border-radius:10px;background:var(--surface,#123844);color:#e4f2ec;font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;line-height:1.65}"
+    },
+    {
+      "name": "连接状态",
+      "kind": "custom",
+      "description": "文字和圆点同时表达连接状态。",
+      "html": "<p class=\"ds-status\" role=\"status\">尚未连接</p>",
+      "css": ".ds-status{display:flex;align-items:center;gap:8px;margin:0;color:var(--accent,#f2d492);font-family:system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;font-size:15px;line-height:1.75}.ds-status::before{content:\"\";width:7px;height:7px;border-radius:50%;background:currentColor}.ds-status[data-connected=\"true\"]{color:#a9e7bd}"
+    }
+  ],
+  "narrative": {
+    "northStar": "沿用项目主页的深青工具界面",
+    "overview": "延续仓库主页的深青背景、浅色文字与金色强调，优先让用户看清当前连接状态和下一步操作。页面以标题、分隔线和留白建立层级；二维码与相机画面承担实际配对任务，不使用装饰图片。",
+    "keyCharacteristics": [
+      "系统字体与紧凑、可扫描的操作布局。",
+      "金色主操作，透明背景的退出、取消和清空操作。",
+      "平面分区；提示和输入控件通过底色与边框区分。"
+    ],
+    "rules": [],
+    "dos": [
+      "**Do** 沿用现有深青、浅色文字与金色强调，并从已实现的控件变体扩展。",
+      "**Do** 保持状态文字、可见焦点、可换行的长内容和移动端单栏布局。",
+      "**Do** 将视觉记录与浏览器测试、线上资源及真机验收结论分别维护。"
+    ],
+    "donts": [
+      "**Don't** 为这个通信演示另建视觉主题或添加未经确认的装饰图片。",
+      "**Don't** 仅用颜色表示连接或错误状态。",
+      "**Don't** 把源码中的触摸策略视为真机手势已经通过验收。"
+    ]
+  }
+}

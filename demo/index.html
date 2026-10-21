@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#082b3a" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23082b3a'/%3E%3Cpath d='M8 12h16l-4-4m4 12H8l4 4' fill='none' stroke='%23f2d492' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+    <title>局域网联机 · 双向扫码</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main>
+      <header class="page-header">
+        <a id="home-link" class="back-link" href="__PROJECT_HOME__">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6" /></svg>
+          返回项目主页
+        </a>
+        <p id="connection-status" class="status" role="status">尚未连接</p>
+      </header>
+
+      <section class="introduction" aria-labelledby="page-title">
+        <h1 id="page-title">局域网联机</h1>
+        <p class="lead">连上同一个 Wi-Fi，双方各扫一次，就能在设备之间传数据。</p>
+        <p>选择一台设备创建房间，其他设备逐台加入。请保持房主页面打开。</p>
+      </section>
+
+      <div id="error-notice" class="notice error-notice" role="alert" hidden>
+        <p id="error-message"></p>
+        <button id="dismiss-error" class="quiet" type="button">关闭提示</button>
+      </div>
+
+      <section id="setup" class="setup" aria-label="开始连接">
+        <div>
+          <button id="create-room" class="primary" type="button">创建房间</button>
+          <p>在这台设备上显示邀请码</p>
+        </div>
+        <div>
+          <button id="join-room" type="button">加入房间</button>
+          <p>扫描房主设备上的邀请码</p>
+        </div>
+      </section>
+
+      <section id="room-section" class="room-section" aria-labelledby="room-heading" hidden>
+        <div class="section-heading">
+          <div>
+            <h2 id="room-heading">当前房间</h2>
+            <p id="room-description" class="data-label"></p>
+          </div>
+          <button id="leave-room" class="quiet" type="button">离开房间</button>
+        </div>
+        <ul id="peer-list" class="peer-list" aria-label="房间设备"></ul>
+        <p id="room-note" class="muted"></p>
+        <button id="add-peer" type="button" hidden>邀请下一台设备</button>
+      </section>
+
+      <section id="pairing-section" class="pairing-section" aria-labelledby="pairing-heading" hidden>
+        <div class="section-heading">
+          <div>
+            <h2 id="pairing-heading">开始配对</h2>
+            <p id="pairing-description"></p>
+          </div>
+          <button id="cancel-pairing" class="quiet" type="button">取消配对</button>
+        </div>
+        <div class="pairing-layout">
+          <div id="code-panel" class="code-panel" hidden>
+            <h3 id="code-heading">1. 让对方扫描邀请码</h3>
+            <div id="code-loading" class="notice" role="status" hidden>正在生成配对码…</div>
+            <figure id="code-figure" hidden>
+              <canvas id="pairing-code" aria-label="配对二维码" role="img"></canvas>
+              <figcaption id="code-caption"></figcaption>
+            </figure>
+            <a id="save-code" class="button-link" download="lan-link-pairing.png" hidden>保存二维码图片</a>
+            <details id="output-details">
+              <summary>查看本机配对文本</summary>
+              <label for="pairing-output">本机配对文本</label>
+              <textarea id="pairing-output" rows="4" readonly spellcheck="false"></textarea>
+              <button id="copy-code" class="quiet" type="button">复制配对文本</button>
+              <p id="copy-status" class="muted" role="status"></p>
+            </details>
+          </div>
+
+          <div id="receive-panel" class="receive-panel">
+            <h3 id="receive-heading">扫描房主的邀请码</h3>
+            <p id="receive-description">房主点击“创建房间”后，会显示邀请码。</p>
+            <div class="actions">
+              <button id="start-scan" class="primary" type="button">打开相机扫码</button>
+              <button id="import-code" type="button">导入二维码图片</button>
+              <input id="code-file" type="file" accept="image/*" hidden />
+            </div>
+            <p id="camera-note" class="muted">相机需要 HTTPS 或 localhost。也可以导入二维码图片。</p>
+            <div id="scanner-panel" class="scanner-panel" hidden>
+              <video id="scanner-video" playsinline muted aria-label="扫码相机画面"></video>
+              <p id="scanner-status" role="status">将对方的完整二维码放入画面</p>
+              <button id="stop-scan" type="button">关闭相机</button>
+            </div>
+            <details id="input-details">
+              <summary>使用配对文本</summary>
+              <form id="pairing-form">
+                <label for="pairing-input">对方的配对文本</label>
+                <textarea id="pairing-input" rows="4" placeholder="粘贴另一台设备的完整配对文本" spellcheck="false" autocapitalize="off"></textarea>
+                <button id="submit-pairing" type="submit">使用这段配对文本</button>
+              </form>
+            </details>
+          </div>
+        </div>
+        <p id="pairing-status" class="pairing-status" role="status"></p>
+      </section>
+
+      <section id="messages-section" class="messages-section" aria-labelledby="messages-heading" hidden>
+        <div class="section-heading">
+          <div>
+            <h2 id="messages-heading">试着传一条消息</h2>
+            <p>这是传输示例。业务数据的内容和处理方式由接入方定义。</p>
+          </div>
+        </div>
+        <form id="message-form">
+          <div class="field-row">
+            <div>
+              <label for="message-target">发送给</label>
+              <select id="message-target"><option value="*">所有其他设备</option></select>
+            </div>
+            <div>
+              <label for="message-type">数据格式</label>
+              <select id="message-type">
+                <option value="text">文本</option>
+                <option value="binary">UTF-8 二进制</option>
+              </select>
+            </div>
+          </div>
+          <label for="message-input">消息内容</label>
+          <textarea id="message-input" rows="3" placeholder="例如：你好，另一台设备"></textarea>
+          <div class="send-row">
+            <p id="message-size" class="muted">0 字节 · 自动分块传输</p>
+            <button id="send-message" class="primary" type="submit" disabled>发送</button>
+          </div>
+        </form>
+        <div class="section-heading log-heading">
+          <h3>消息记录</h3>
+          <button id="clear-log" class="quiet" type="button">清空记录</button>
+        </div>
+        <p id="log-empty" class="muted">连接成功后，在任意设备发送第一条消息。</p>
+        <ol id="message-log" class="message-log" aria-label="消息记录"></ol>
+        <p class="muted">仅保留本页最近 100 条，刷新或离开页面后清空。</p>
+      </section>
+
+      <footer>
+        <p>连接信息通过二维码交换，数据通过 WebRTC 传输。此示例不使用信令、STUN 或 TURN 服务。</p>
+        <p>同一 Wi-Fi 也可能开启设备隔离；连接失败时，请确认设备可互访，或换用同一热点后重新配对。</p>
+      </footer>
+    </main>
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>
