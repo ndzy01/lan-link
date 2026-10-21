@@ -110,7 +110,7 @@ pnpm build:demo        # demo-dist/demo/index.html + demo-dist/assets/
 ```
 
 `pnpm dev` 持续构建库，演示页引用包导出，以便在真实浏览器中验证 Rslib 产物。
-端口 5290 使用 `strictPort`，被占用时明确失败。浏览器测试使用调用方启动的预览服务，通过 `TEST_BASE_URL` 指定地址；CI 启动自己的临时服务并在结束时关闭。`TEST_ARTIFACTS` 可指定截图目录，默认写入忽略的 `artifacts/e2e/`。
+端口 5290 使用 `strictPort`，被占用时明确失败。浏览器测试使用调用方启动的预览服务，通过 `TEST_BASE_URL` 指定地址；CI 在 Linux 检查 Chromium，在 macOS 检查 Apple 平台 WebKit；各自启动临时服务并在结束时关闭。`TEST_ARTIFACTS` 可指定截图目录，默认写入忽略的 `artifacts/e2e/`。
 
 库构建采用 [Rslib](https://rslib.rs/zh/guide/start/quick-start) 的 ESM bundleless 模式，两个公开入口均输出 JavaScript 和类型声明。演示构建与库产物分开，单独部署完整 `demo-dist/` 即可。
 
